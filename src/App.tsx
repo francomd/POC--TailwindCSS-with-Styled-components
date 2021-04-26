@@ -1,15 +1,18 @@
-import "twin.macro";
-import tw, { styled } from "twin.macro";
+import Main from "./components/Main";
+import Todo from "./components/Todo";
+import ThemeContext from "./context/themeContext";
+import useThemeHook from "./hooks/useThemeHook";
 
-const H1 = styled.h1(() => [tw`font-sans text-red-600 text-3xl font-bold`]);
-const Main = styled.main(() => [tw`text-red-800`]);
+const App = () => {
+  const [theme, toggleTheme] = useThemeHook();
 
-function App() {
   return (
-    <Main>
-      <H1>Hello World</H1>
-    </Main>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <Main>
+        <Todo />
+      </Main>
+    </ThemeContext.Provider>
   );
-}
+};
 
 export default App;
