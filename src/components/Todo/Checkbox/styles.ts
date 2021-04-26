@@ -3,6 +3,9 @@ import { styled } from "twin.macro";
 const StyledCheckbox = styled.span`
   width: 20px;
   height: 20px;
+  border-radius: 100%;
+  overflow: hidden;
+
   [type="checkbox"] {
     &:checked,
     &:not(:checked) {
@@ -17,7 +20,6 @@ const StyledCheckbox = styled.span`
       & + span {
         position: relative;
         display: inline-block;
-        padding-left: 36px;
         height: 20px;
         width: 20px;
         cursor: pointer;
