@@ -4,28 +4,30 @@ import IconMoon from "../../assets/icon-moon.svg";
 import IconSun from "../../assets/icon-sun.svg";
 import NewItem from "./NewItem";
 import Item, { TItem } from "./Item";
+import ItemsActions from "./ItemsActions";
 import { StyledWrapper, StyledHeader, StyledTitle, StyledIcon, StyledItemList } from "./styles";
 
 const Todo = () => {
   const themeContext = useContext(ThemeContext);
-  const [items, setItems] = useState<TItem[]>([{ title: "Todo 1", done: false }]);
+  const [items, setItems] = useState<TItem[]>([]);
 
   useEffect(() => {
-    const localStorageItems = JSON.parse(localStorage.getItem("todoitems") || "");
+    const localStorageItems: TItem[] = JSON.parse(localStorage.getItem("todoitems") || "null");
     if (localStorageItems) setItems([...localStorageItems]);
   }, []);
 
   useEffect(() => {
-    if (items.length) {
-      localStorage.setItem("todoitems", JSON.stringify([...items]));
-    }
+    localStorage.setItem("todoitems", JSON.stringify([...items]));
   }, [items]);
 
   const createItem = (val: string) => setItems([...items, { title: val, done: false }]);
   const toggleDone = (i: number) => {
     const tempArray = [...items];
-    tempArray[i].done = !items[i].done;
+    tempArray[i].done = !tempArray[i].done;
     setItems(tempArray);
+  };
+  const clearCompleted = () => {
+    setItems([...items.filter((item) => !item.done)]);
   };
 
   return (
@@ -38,10 +40,14 @@ const Todo = () => {
         />
       </StyledHeader>
       <NewItem createItem={createItem} />
-      <StyledItemList>
-        {!!items.length &&
-          items.map((item, i) => <Item done={item.done} onClick={() => toggleDone(i)} key={i} title={item.title} />)}
-      </StyledItemList>
+      {!!items.length && (
+        <StyledItemList>
+          {items.map((item, i) => (
+            <Item done={item.done} onClick={() => toggleDone(i)} key={i} title={item.title} />
+          ))}
+          <ItemsActions itemsQuantity={items.length} onClearCompleted={clearCompleted} />
+        </StyledItemList>
+      )}
     </StyledWrapper>
   );
 };
