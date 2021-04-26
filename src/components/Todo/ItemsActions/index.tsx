@@ -4,7 +4,7 @@ const StyledWrapper = tw.li`bg-white dark:bg-gray-800 w-full p-4 px-6 flex justi
 
 const StyledTextHidden = tw.span`text-gray-400 dark:text-gray-500 text-sm`;
 
-const StyledTextItem = tw.span`text-black dark:text-white hover:text-gray-500 hover:dark:text-gray-300 cursor-pointer`;
+const StyledTextItem = tw.span`text-black dark:text-white hover:text-gray-500 hover:dark:text-gray-300 cursor-pointer text-sm`;
 
 const ItemsActions = ({ itemsQuantity, onClearCompleted }: { itemsQuantity: number; onClearCompleted: () => void }) => {
   return (
