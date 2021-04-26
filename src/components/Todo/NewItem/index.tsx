@@ -21,7 +21,7 @@ const NewItem = ({ createItem }: { createItem: (val: string) => void }) => {
         placeholder="Write something to do"
         value={text}
         onChange={(e: any): void => setText(e?.target?.value || "")}
-        onKeyPress={handleCreateItem}
+        onKeyUp={handleCreateItem}
       />
     </StyledNewItem>
   );
